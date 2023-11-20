@@ -1,0 +1,7 @@
+*.map
+*.o
+*.crf
+*.axf
+*.htm
+*.dep
+*.map

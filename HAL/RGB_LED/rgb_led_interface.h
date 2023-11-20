@@ -18,17 +18,18 @@ typedef enum
 typedef enum  
 {
 	/************************************************************************/
-	RGB_TURN_OFF = 0,
-	RGB_RED_ON   = RED_PIN,
-	RGB_GREEN_ON = GREEN_PIN,
-	RGB_BLUE_ON  = BLUE_PIN,
+	RGB_TURN_OFF       = 0,
+	RGB_RED_ON         = RED_PIN,
+	RGB_GREEN_ON       = GREEN_PIN,
+	RGB_BLUE_ON        = BLUE_PIN,                                    
+	RGB_RED_GREEN_ON   = RGB_RED_ON|RGB_GREEN_ON        ,
+  RGB_RED_BLUE_ON    = RGB_RED_ON|RGB_BLUE_ON        ,
+  RGB_GREEN_BLUE_ON  = RGB_GREEN_ON|RGB_BLUE_ON      ,
+  RGB_RED_GREEN_BLUE_ON = RGB_RED_ON|RGB_GREEN_ON|RGB_BLUE_ON,
 	/************************************************************************/
 }enu_rgbColorON_t;
 /************************************************************************/
-#define RGB_RED_GREEN_ON                    (RGB_RED_ON|RGB_GREEN_ON)
-#define RGB_RED_BLUE_ON                     (RGB_RED_ON|RGB_BLUE_ON )
-#define RGB_GREEN_BLUE_ON                   (RGB_GREEN_ON|RGB_BLUE_ON)
-#define RGB_RED_GREEN_BLUE_ON           (RGB_RED_ON|RGB_GREEN_ON|RGB_BLUE_ON)
+
 /************************************************************************/
 /***********************      rgb FUNCTIONS      ***********************/
 /************************************************************************/
