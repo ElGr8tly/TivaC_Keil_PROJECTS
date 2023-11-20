@@ -574,7 +574,7 @@ void SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
 void SystemInit (void)
 {
 #if(CLOCK_SETUP)
-    volatile uint32_t i = 0;
+    uint32_t i;
 #endif
 
   /* FPU settings ------------------------------------------------------------*/
