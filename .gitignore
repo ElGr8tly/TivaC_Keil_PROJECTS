@@ -4,4 +4,7 @@
 *.axf
 *.htm
 *.dep
-*.map
+*.d
+*.lst
+*.lnp
+*.iex
