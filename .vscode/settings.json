@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "error_check.h": "c",
+        "std_types.h": "c",
+        "gpio_interface.h": "c",
+        "bit_math.h": "c",
+        "gpio_private.h": "c",
+        "rgb_led_private.h": "c"
+    }
+}
