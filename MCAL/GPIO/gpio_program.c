@@ -243,6 +243,7 @@ enu_gpioErrorState_t gpio_deinit(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOr
 		    		CLR_BITS(GPIO_CONFIG(enu_l_port,GPIODEN_CONFIG  ) , (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup );
 		    		/* Save In History Choosen PINS */
 		    		CLR_BITS(str_gs_gpioPortsHistory[str_ptr_pinOrGroup->enu_gpioPort].enu_gpioPinsDigitalMode, (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup);	
+					CLR_BITS(str_gs_gpioPortsHistory[str_ptr_pinOrGroup->enu_gpioPort].enu_gpioPinsdirection, (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup);
 		    	}/************************************************************************/
 		    	break;
 		    	/************************************************************************/
@@ -268,9 +269,6 @@ enu_gpioErrorState_t gpio_deinit(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOr
 			CLR_BITS(GPIO_CONFIG(enu_l_port,GPIOICR_CONFIG  ) , (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup );/* Clear interrupt status bit */
 		    /* Mask interrupt to avoid unexepected interrupt trigger or if interrupt mode is not configured */
 		    CLR_BITS(GPIO_CONFIG(enu_l_port,GPIOIM_CONFIG  ) , (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup );
-			/************************************************************************/
-		    /* Save In History Choosen PINS */
-		    CLR_BITS(str_gs_gpioPortsHistory[str_ptr_pinOrGroup->enu_gpioPort].enu_gpioPinsdirection, (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup);
 		    /************************************************************************/
 			/* PULL Down*/
 		    CLR_BITS(GPIO_CONFIG(enu_l_port,GPIOPUR_CONFIG  ) , (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup );
