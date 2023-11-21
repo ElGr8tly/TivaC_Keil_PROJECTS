@@ -23,9 +23,9 @@ typedef enum
 	RGB_GREEN_ON       = GREEN_PIN,
 	RGB_BLUE_ON        = BLUE_PIN,                                    
 	RGB_RED_GREEN_ON   = RGB_RED_ON|RGB_GREEN_ON        ,
-  RGB_RED_BLUE_ON    = RGB_RED_ON|RGB_BLUE_ON        ,
-  RGB_GREEN_BLUE_ON  = RGB_GREEN_ON|RGB_BLUE_ON      ,
-  RGB_RED_GREEN_BLUE_ON = RGB_RED_ON|RGB_GREEN_ON|RGB_BLUE_ON,
+    RGB_RED_BLUE_ON    = RGB_RED_ON|RGB_BLUE_ON        ,
+    RGB_GREEN_BLUE_ON  = RGB_GREEN_ON|RGB_BLUE_ON      ,
+    RGB_RED_GREEN_BLUE_ON = RGB_RED_ON|RGB_GREEN_ON|RGB_BLUE_ON,
 	/************************************************************************/
 }enu_rgbColorON_t;
 /************************************************************************/
