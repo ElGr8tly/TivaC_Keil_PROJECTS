@@ -14,8 +14,8 @@
 /*    LED_P0, LED_P1, LED_P2, LED_P3, LED_P4, LED_P5, LED_P6, LED_P7    */
 /************************************************************************/
 #define RED_PIN                      LED_P1     
-#define GREEN_PIN                    LED_P2
-#define BLUE_PIN                     LED_P3	
+#define BLUE_PIN                    LED_P2
+#define GREEN_PIN                     LED_P3	
 /************************************************************************/
 /*                         Choose Any From                              */
 /*       LEDS_OPERATING_CURRENT_2MA, LEDS_OPERATING_CURRENT_4MA         */
