@@ -26,9 +26,9 @@ static void wdt_cb (void)
 int main(void)
 {
 	  wdt_cfg.wdt_index      = WDT0;
-    wdt_cfg.timeout_ms     = 5000;
+    wdt_cfg.timeout_ms     = 1000;
 	  wdt_cfg.use_test_mode  = 1;
-    wdt_cfg.use_reset_mode = 0;
+    wdt_cfg.use_reset_mode = 1;
     wdt_cfg.wdt_int        = USE_NORMAL_INT;
     wdt_cfg.pf_wdt_cb      = wdt_cb;
     wdt_init(&wdt_cfg);
