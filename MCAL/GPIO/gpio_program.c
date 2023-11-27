@@ -38,7 +38,7 @@ enu_gpioErrorState_t gpio_init(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOrGr
 	   {/************************************************************************/
 		  enu_l_port = str_ptr_pinOrGroup->enu_gpioPort;
 		  /************************************************************************/
-		  #ifdef  GPIO_BUS        ==       GPIO_APB
+		  #if  GPIO_BUS        ==       GPIO_APB
 		  /************************************************************************/
 			if(enu_l_port > GPIO_PORTD)
 			{
@@ -150,7 +150,7 @@ enu_gpioErrorState_t gpio_init(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOrGr
 						NVIC_EnableIRQ(GPIOF_IRQn);
 					}/************************************************************************/
 					__enable_irq();
-                     /* Edge-trggered interrupt */
+          /* Edge-trggered interrupt */
 					CLR_BITS(GPIO_CONFIG(enu_l_port,GPIOIS_CONFIG  ) , (uint8_t)str_ptr_pinOrGroup->enu_gpioPinOrGroup );
 					switch (str_ptr_pinOrGroup->enu_interruptMode)
 					{/************************************************************************/
@@ -225,7 +225,7 @@ enu_gpioErrorState_t gpio_deinit(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOr
 	    {/************************************************************************/
 		  enu_l_port = str_ptr_pinOrGroup->enu_gpioPort;
 		  /************************************************************************/
-		  #ifdef  GPIO_BUS        ==       GPIO_APB
+		  #if  GPIO_BUS        ==       GPIO_APB
 		  /************************************************************************/
 			if(enu_l_port > GPIO_PORTD)
 			{
@@ -311,7 +311,7 @@ enu_gpioErrorState_t gpio_write(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOrG
 	   {/************************************************************************/
 		  enu_l_port = str_ptr_pinOrGroup->enu_gpioPort;
 		  /************************************************************************/
-		  #ifdef  GPIO_BUS        ==       GPIO_APB
+		  #if  GPIO_BUS        ==       GPIO_APB
 		  /************************************************************************/
 			if(enu_l_port > GPIO_PORTD)
 			{
@@ -383,7 +383,7 @@ enu_gpioErrorState_t gpio_read(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOrGr
 	   {/************************************************************************/
 		  enu_l_port = str_ptr_pinOrGroup->enu_gpioPort;
 		  /************************************************************************/
-		  #ifdef  GPIO_BUS        ==       GPIO_APB
+		  #if  GPIO_BUS        ==       GPIO_APB
 		  /************************************************************************/
 			if(enu_l_port > GPIO_PORTD)
 			{
@@ -449,7 +449,7 @@ enu_gpioErrorState_t gpio_toggle(const str_gpioPinOrGroupOfPins_t* str_ptr_pinOr
 	   {/************************************************************************/
 		  enu_l_port = str_ptr_pinOrGroup->enu_gpioPort;
 		  /************************************************************************/
-		  #ifdef  GPIO_BUS        ==       GPIO_APB
+		  #if  GPIO_BUS        ==       GPIO_APB
 		  /************************************************************************/
 			if(enu_l_port > GPIO_PORTD)
 			{
@@ -619,7 +619,7 @@ static void gpio_irqHandler(enu_gpioPort_t enu_l_port)
 	uint8_t uint8_l_pinMask    = GPIO_NO_PIN;
 	enu_gpioPort_t enu_l_portConfig = enu_l_port;
 	/************************************************************************/
-	#ifdef  GPIO_BUS        ==       GPIO_APB
+	#if  GPIO_BUS        ==       GPIO_APB
 	/************************************************************************/
 	if(enu_l_port > GPIO_PORTD)
 	{

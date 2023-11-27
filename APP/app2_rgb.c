@@ -3,6 +3,10 @@
 /************************************************************************/
 #include "..\LIB\error_check.h"
 /************************************************************************/
+/*                         INCLUDE FROM TMU                             */
+/************************************************************************/
+#include "..\SERVICES\TMU\tmu_interface.h"
+/************************************************************************/
 /*                         INCLUDE FROM BUTTON                          */
 /************************************************************************/
 #include "..\HAL\BUTTON\button_interface.h"
@@ -19,6 +23,7 @@
 #define  APP_SEQ_3           3 
 #define  APP_SEQ_4           4 
 /************************************************************************/
+#define _ONE_SECOND_        1000
 /************************************************************************/
 static str_buttonsConfig_t str_gl_startButton =
 {
@@ -43,15 +48,26 @@ static void app_buttonPressed(void)
 	{/************************************************************************/
 		uint8_sequenceCounter++;
 	}/************************************************************************/
+	rgb_changeColor(enu_rgbColors[uint8_sequenceCounter]);
+	tmu_resume(TMU_SYSTICK_INTERRUPT);
 }
 /************************************************************************/
 /************************************************************************/
-void app1_rgbInit(void)
+static void app_ledTimeout(void)
+{/************************************************************************/
+	tmu_stop(TMU_SYSTICK_INTERRUPT);
+	rgb_changeColor(RGB_TURN_OFF);
+}
+/************************************************************************/
+/************************************************************************/
+void app2_rgbInit(void)
 {
 	/************************************************************************/
 	while(ERROR_CHECK(!buttons_init(&str_gl_startButton)));
 	while(ERROR_CHECK(!buttons_callBackSingleButtonInterrupt(BUTTONS_PORTF,BUTTON_P4,app_buttonPressed)));
 	while(ERROR_CHECK(!rgb_init()));
+	while(ERROR_CHECK(!(tmu_init(TMU_SYSTICK_INTERRUPT , _ONE_SECOND_ , app_ledTimeout ) || tmu_stop(TMU_SYSTICK_INTERRUPT))));
+
 	/************************************************************************/
 	enu_rgbColors[APP_SEQ_0]=RGB_TURN_OFF;
 	enu_rgbColors[APP_SEQ_1]=RGB_RED_ON;
@@ -62,11 +78,9 @@ void app1_rgbInit(void)
 }
 /************************************************************************/
 /************************************************************************/
-void app1_rgbRoutine(void)
+void app2_rgbRoutine(void)
 {
-	/************************************************************************/
-  while(ERROR_CHECK(!rgb_changeColor(enu_rgbColors[uint8_sequenceCounter])));
-	/************************************************************************/
+  //Do Nothing
 }
 /************************************************************************/
 /************************************************************************/
