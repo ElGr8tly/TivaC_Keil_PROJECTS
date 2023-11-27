@@ -55,7 +55,7 @@ static void app_buttonPressed(void)
 /************************************************************************/
 static void app_ledTimeout(void)
 {/************************************************************************/
-	tmu_stop(TMU_SYSTICK_INTERRUPT);
+	tmu_stopAndClearStartedInterval(TMU_SYSTICK_INTERRUPT);
 	rgb_changeColor(RGB_TURN_OFF);
 }
 /************************************************************************/
@@ -66,7 +66,7 @@ void app2_rgbInit(void)
 	while(ERROR_CHECK(!buttons_init(&str_gl_startButton)));
 	while(ERROR_CHECK(!buttons_callBackSingleButtonInterrupt(BUTTONS_PORTF,BUTTON_P4,app_buttonPressed)));
 	while(ERROR_CHECK(!rgb_init()));
-	while(ERROR_CHECK(!(tmu_init(TMU_SYSTICK_INTERRUPT , _ONE_SECOND_ , app_ledTimeout ) || tmu_stop(TMU_SYSTICK_INTERRUPT))));
+	while(ERROR_CHECK(!(tmu_init(TMU_SYSTICK_INTERRUPT , _ONE_SECOND_ , app_ledTimeout ) || tmu_stopAndClearStartedInterval(TMU_SYSTICK_INTERRUPT))));
 
 	/************************************************************************/
 	enu_rgbColors[APP_SEQ_0]=RGB_TURN_OFF;

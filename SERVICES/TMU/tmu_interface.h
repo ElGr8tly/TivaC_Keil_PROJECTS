@@ -28,8 +28,9 @@ typedef enum
 /************************************************************************/
 enu_tmuErrorState_t tmu_init(enu_tmuSelecttimer_t enu_l_Selecttimer , uint64_t uint64_l_timeInMilliSeconds , ptr_func_tmuCallBack_t * ptr_func_l_systickCallBack );
 enu_tmuErrorState_t tmu_deinit(enu_tmuSelecttimer_t enu_l_Selecttimer );
-enu_tmuErrorState_t tmu_getAbsoluteTimeMilliSeconds(enu_tmuSelecttimer_t enu_l_Selecttimer ,uint32_t  * uint64_ptr_l_absoluteTimeMilliSeconds);
+enu_tmuErrorState_t tmu_getAbsoluteTimeMilliSeconds(enu_tmuSelecttimer_t enu_l_Selecttimer ,uint64_t  * uint64_ptr_l_absoluteTimeMilliSeconds);
 enu_tmuErrorState_t tmu_stop(enu_tmuSelecttimer_t enu_l_Selecttimer );
+enu_tmuErrorState_t tmu_stopAndClearStartedInterval(enu_tmuSelecttimer_t enu_l_Selecttimer );
 enu_tmuErrorState_t tmu_resume(enu_tmuSelecttimer_t enu_l_Selecttimer );
 enu_tmuErrorState_t tmu_clearAbsoluteTime(enu_tmuSelecttimer_t enu_l_Selecttimer );
 /************************************************************************/

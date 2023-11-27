@@ -13,24 +13,38 @@ static uint64_t uint64_gs_systickAbsoluteTimeMilliSeconds;
 static void tmu_systickCallBack(void)
 {
     static uint64_t uint64_ls_systickMilliSeconds = TMU_START ;
-    if(uint64_ls_systickMilliSeconds == TMU_START)
+    if((uint64_ls_systickMilliSeconds == TMU_START) || (uint64_ls_systickMilliSeconds >= uint64_gs_systickMilliSeconds))
     {/****************************************************************************************/
-        uint64_ls_systickMilliSeconds = uint64_gs_systickMilliSeconds - SYSTICK_ONE_TICK ;
+        if( uint64_gs_systickMilliSeconds != TMU_START)
+				{
+					uint64_ls_systickMilliSeconds = uint64_gs_systickMilliSeconds - SYSTICK_ONE_TICK ;
+				}
+				else
+				{
+					uint64_ls_systickMilliSeconds = TMU_START;
+				}
     }/****************************************************************************************/
     else
     {/****************************************************************************************/
         --uint64_ls_systickMilliSeconds;
     }/****************************************************************************************/
+		if( uint64_gs_systickMilliSeconds != TMU_START)
+			{
+				if( (uint64_ls_systickMilliSeconds == TMU_START) && (ptr_func_gs_systickCallBack != NULL) )
+				{/****************************************************************************************/
+						ptr_func_gs_systickCallBack();
+				}/****************************************************************************************/
+				else
+				{
+					//do nothing
+				}
+				uint64_gs_systickAbsoluteTimeMilliSeconds++;
+			}
+		else
+			{
+					//do nothing
+			}
     /****************************************************************************************/
-    if( (uint64_ls_systickMilliSeconds == TMU_START) && (ptr_func_gs_systickCallBack != NULL) )
-    {/****************************************************************************************/
-        ptr_func_gs_systickCallBack();
-    }/****************************************************************************************/
-    else
-    {/****************************************************************************************/
-        //do nothing
-    }/****************************************************************************************/
-    uint64_gs_systickAbsoluteTimeMilliSeconds++;
     /****************************************************************************************/
 }
 
@@ -94,6 +108,7 @@ enu_tmuErrorState_t tmu_deinit(enu_tmuSelecttimer_t enu_l_Selecttimer )
 {
     enu_tmuErrorState_t  enu_l_tmuErrorState = TMU_OK;
     /****************************************************************************************/
+	
     if (!ERROR_CHECK( enu_l_Selecttimer < TMU_INVALID_TIMER ))
     {/****************************************************************************************/
         switch (enu_l_Selecttimer)
@@ -109,6 +124,7 @@ enu_tmuErrorState_t tmu_deinit(enu_tmuSelecttimer_t enu_l_Selecttimer )
                     uint64_gs_systickAbsoluteTimeMilliSeconds = TMU_START;
                     uint64_gs_systickMilliSeconds = TMU_START;
                     ptr_func_gs_systickCallBack = NULL;
+								  	tmu_systickCallBack();
                 }
             }
             break;
@@ -123,6 +139,7 @@ enu_tmuErrorState_t tmu_deinit(enu_tmuSelecttimer_t enu_l_Selecttimer )
                     uint64_gs_systickAbsoluteTimeMilliSeconds = TMU_START;
                     uint64_gs_systickMilliSeconds = TMU_START;
                     ptr_func_gs_systickCallBack = NULL;
+									  tmu_systickCallBack();
                 }
             }
             break;
@@ -141,7 +158,7 @@ enu_tmuErrorState_t tmu_deinit(enu_tmuSelecttimer_t enu_l_Selecttimer )
     return enu_l_tmuErrorState;
 }
 
-enu_tmuErrorState_t tmu_getAbsoluteTimeMilliSeconds(enu_tmuSelecttimer_t enu_l_Selecttimer ,uint32_t  * uint64_ptr_l_absoluteTimeMilliSeconds)
+enu_tmuErrorState_t tmu_getAbsoluteTimeMilliSeconds(enu_tmuSelecttimer_t enu_l_Selecttimer ,uint64_t  * uint64_ptr_l_absoluteTimeMilliSeconds)
 {
 				enu_tmuErrorState_t  enu_l_tmuErrorState = TMU_OK;
         if ( uint64_ptr_l_absoluteTimeMilliSeconds != NULL )
@@ -204,6 +221,46 @@ enu_tmuErrorState_t tmu_stop(enu_tmuSelecttimer_t enu_l_Selecttimer )
         case TMU_SYSTICK_INTERRUPT:
             {
                 systick_stop();
+            }
+            break;
+        default:
+            {
+                enu_l_tmuErrorState = TMU_WRONG_INPUT_NULL;
+            }
+            break;
+        }  
+    }
+    else
+    {
+        enu_l_tmuErrorState = TMU_NOT_INITIALIZED;
+    }
+    return enu_l_tmuErrorState;
+}
+
+enu_tmuErrorState_t tmu_stopAndClearStartedInterval(enu_tmuSelecttimer_t enu_l_Selecttimer )
+{
+    enu_tmuErrorState_t  enu_l_tmuErrorState = TMU_OK;
+	  uint64_t uint64_l_systickMilliSeconds = TMU_START;
+    if(uint64_gs_systickMilliSeconds != TMU_START )
+    {
+        switch (enu_l_Selecttimer)
+        {
+        case TMU_SYSTICK_POLLING:
+            {
+							  uint64_l_systickMilliSeconds = uint64_gs_systickMilliSeconds;
+                systick_stop();
+							  uint64_gs_systickMilliSeconds = TMU_START;
+							  tmu_systickCallBack();
+							  uint64_gs_systickMilliSeconds = uint64_l_systickMilliSeconds;
+            }
+            break;
+        case TMU_SYSTICK_INTERRUPT:
+            {
+							  uint64_l_systickMilliSeconds = uint64_gs_systickMilliSeconds;
+                systick_stop();
+							  uint64_gs_systickMilliSeconds = TMU_START;
+							  tmu_systickCallBack();
+							  uint64_gs_systickMilliSeconds = uint64_l_systickMilliSeconds;
             }
             break;
         default:

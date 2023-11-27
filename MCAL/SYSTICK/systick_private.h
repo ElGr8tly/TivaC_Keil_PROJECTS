@@ -7,7 +7,7 @@
 /************************************************************************/
 #define TICKS_FOR_ONE_MICRO_SECOND         4
 #define _ONE_TICK_                         1
-#define _START_TICK_                       1
+#define _START_TICK_                       0
 /************************************************************************/
 #if !defined(_DISABLE_)
 #define _DISABLE_                          0
