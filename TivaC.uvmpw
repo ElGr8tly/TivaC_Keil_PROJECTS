@@ -21,4 +21,9 @@
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
+  <project>
+    <PathAndName>.\Projects\RGB Brightness V1.0\RGB_Brightness_V1.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
+  </project>
+
 </ProjectWorkspace>
