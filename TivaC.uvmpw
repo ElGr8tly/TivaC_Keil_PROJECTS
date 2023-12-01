@@ -9,6 +9,7 @@
 
   <project>
     <PathAndName>.\Projects\RGB V1.0\RGB_V1.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
@@ -17,12 +18,12 @@
 
   <project>
     <PathAndName>.\Projects\RGB V2.0\RGB_V2.uvprojx</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\Projects\RGB Brightness V1.0\RGB_Brightness_V1.uvprojx</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
