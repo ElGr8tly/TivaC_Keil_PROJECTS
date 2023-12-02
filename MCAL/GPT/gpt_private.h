@@ -1,6 +1,6 @@
 #ifndef __GPT_PRIVATE_H__
 #define __GPT_PRIVATE_H__
-
+/************************************************************************/
 typedef	enum {
 	GPTCFG		  = 0x000,
 	GPTTAMR	  = 0x004,
@@ -30,10 +30,11 @@ typedef	enum {
 	GPTTBPV	  = 0x068,
 	GPTPP        = 0xFC0,
 }enu_GPTREG_t;
-
+/************************************************************************/
+#define GPT_B                        1
 #define GPT_REG_BASE( _BASE_ )			   (((_BASE_) < 8) ? (0x40030000 + (_BASE_) * 0x1000) : ((0x4004C000 + (_BASE_ - 8) * 0x1000)))
 #define GPT_CONFIG(  _REG_ , _BASE_ )       (*((volatile uint32_t*) (GPT_REG_BASE(_BASE_) + (_REG_))))
-
+/************************************************************************/
 #define TAEN                    0
 #define TBEN                    8
 #define GPT_BASE_MAX			   6
@@ -44,7 +45,12 @@ typedef	enum {
 #define GPT_TIMB_SHIFT			  8
 #define RCGCTIMER                   (*((volatile uint32_t*) 0x400FE604))
 #define WAIT_CYCLES()               do{ __asm("nop"); __asm("nop"); __asm("nop"); }while(0)
-
-
-
+/************************************************************************/
+static const uint32_t gpt_interruptID[] =
+{/************************************************************************/
+	TIMER0A_IRQn, TIMER1A_IRQn, TIMER2A_IRQn, TIMER3A_IRQn, TIMER4A_IRQn, TIMER5A_IRQn,
+};/************************************************************************/
+/************************************************************************/
+static ptr_func_gptIRQCallBack_t* ptr_func_gptIRQsCallBack[GPT_BASE_MAX][GPT_A_AND_B];
+/************************************************************************/
 #endif

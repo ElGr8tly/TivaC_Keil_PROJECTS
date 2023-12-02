@@ -17,13 +17,11 @@
 #define  APP_SEQ_1           1 
 #define  APP_SEQ_2           2 
 #define  APP_SEQ_3           3 
-#define  RGB_ON_FREQ        5000
+#define  RGB_ON_FREQ        1000
 #define  RGB_GREEN_OFF_0_PERCENT   0
 #define  RGB_GREEN_ON_30_PERCENT  30
 #define  RGB_GREEN_ON_60_PERCENT  60
 #define  RGB_GREEN_ON_90_PERCENT  90
-/************************************************************************/
-#define _ONE_SECOND_        1000
 /************************************************************************/
 static str_buttonsConfig_t str_gs_startButton =
 {

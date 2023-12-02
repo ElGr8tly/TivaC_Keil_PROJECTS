@@ -1,21 +1,19 @@
+/************************************************************************/
+/*                         INCLUDE FROM ARM                             */
+/************************************************************************/
 #include "TM4C123.h"
 #include "core_cm4.h"
-
+/************************************************************************/
+/*                         INCLUDE FROM LIB                             */
+/************************************************************************/
 #include "..\..\LIB\error_check.h"
 #include "..\..\LIB\bit_math.h"
-
+/************************************************************************/
+/*                         INCLUDE FROM GPT                             */
+/************************************************************************/
 #include "gpt_interface.h"
 #include "gpt_private.h"
-
-
-static const uint32_t gpt_interruptID[] = 
-{
-    TIMER0A_IRQn, TIMER1A_IRQn, TIMER2A_IRQn, TIMER3A_IRQn, TIMER4A_IRQn, TIMER5A_IRQn,
-};
-
-static ptr_func_gptIRQCallBack_t* ptr_func_gptIRQsCallBack[GPT_BASE_MAX][GPT_A_AND_B];
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_config(enu_gptBase_t enu_l_gptBase, enu_gptConfig_t enu_l_gptConfig)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -49,7 +47,7 @@ enu_gptErrorState_t gpt_config(enu_gptBase_t enu_l_gptBase, enu_gptConfig_t enu_
     }
     return enu_l_tmuErrorState;
 }
-
+/************************************************************************/
 enu_gptErrorState_t gpt_disable(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -76,8 +74,7 @@ enu_gptErrorState_t gpt_disable(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t 
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_enable(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -104,8 +101,7 @@ enu_gptErrorState_t gpt_enable(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t e
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_setLoad(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName, uint32_t uint32_l_gptLoadVal)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -127,8 +123,7 @@ enu_gptErrorState_t gpt_setLoad(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t 
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_getLoad(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName , uint32_t* ptr_uint32_l_gptLoadVal)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -151,8 +146,7 @@ enu_gptErrorState_t gpt_getLoad(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t 
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_setMatch(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName, uint32_t uint32_l_gptMatchVal)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -174,7 +168,7 @@ enu_gptErrorState_t gpt_setMatch(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t
     }
     return enu_l_tmuErrorState;
 }
-
+/************************************************************************/
 enu_gptErrorState_t gpt_getMatch(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName, uint32_t * ptr_uint32_l_gptMatchVal)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -197,7 +191,7 @@ enu_gptErrorState_t gpt_getMatch(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t
     }
     return enu_l_tmuErrorState;
 }
-
+/************************************************************************/
 enu_gptErrorState_t gpt_getValue(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName , uint32_t * ptr_uint32_l_gptVal)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -207,11 +201,11 @@ enu_gptErrorState_t gpt_getValue(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t
     {
         if (enu_l_gptTimerName == GPT_TIMER_B)
         {
-            *ptr_uint32_l_gptVal = GPT_CONFIG(GPTTBMATCHR, enu_l_gptBase);
+            *ptr_uint32_l_gptVal = GPT_CONFIG(GPTTBR, enu_l_gptBase);
         }
         else
         {
-            *ptr_uint32_l_gptVal = GPT_CONFIG(GPTTBR, enu_l_gptBase);
+            *ptr_uint32_l_gptVal = GPT_CONFIG(GPTTAR, enu_l_gptBase);
         }
     }
     else
@@ -220,9 +214,7 @@ enu_gptErrorState_t gpt_getValue(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t
     }
     return enu_l_tmuErrorState;
 }
-
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_interruptClear(enu_gptBase_t enu_l_gptBase, enu_gptInterruptFlags_t enu_l_intFlags )
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -236,8 +228,7 @@ enu_gptErrorState_t gpt_interruptClear(enu_gptBase_t enu_l_gptBase, enu_gptInter
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_interruptDisable(enu_gptBase_t enu_l_gptBase, enu_gptInterruptFlags_t enu_l_intFlags )
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -251,8 +242,7 @@ enu_gptErrorState_t gpt_interruptDisable(enu_gptBase_t enu_l_gptBase, enu_gptInt
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_interruptEnable(enu_gptBase_t enu_l_gptBase, enu_gptInterruptFlags_t enu_l_intFlags )
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -266,8 +256,7 @@ enu_gptErrorState_t gpt_interruptEnable(enu_gptBase_t enu_l_gptBase, enu_gptInte
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 enu_gptErrorState_t gpt_interruptRegister(enu_gptBase_t enu_l_gptBase, enu_gptTimerName_t enu_l_gptTimerName, ptr_func_gptIRQCallBack_t* ptr_func_l_handler)
 {
     enu_gptErrorState_t  enu_l_tmuErrorState = GPT_OK;
@@ -278,7 +267,7 @@ enu_gptErrorState_t gpt_interruptRegister(enu_gptBase_t enu_l_gptBase, enu_gptTi
         if (enu_l_gptTimerName == GPT_TIMER_B)
         {
             ptr_func_gptIRQsCallBack[enu_l_gptBase][GPT_TIMER_B] = ptr_func_l_handler;
-            NVIC_EnableIRQ(gpt_interruptID[enu_l_gptBase] + 1);
+            NVIC_EnableIRQ(gpt_interruptID[enu_l_gptBase] + GPT_B);
             __enable_irq();
         }
         else
@@ -294,7 +283,7 @@ enu_gptErrorState_t gpt_interruptRegister(enu_gptBase_t enu_l_gptBase, enu_gptTi
     }
     return enu_l_tmuErrorState;
 }
-
+/************************************************************************/
 enu_gptErrorState_t gpt_interruptStatus(enu_gptBase_t enu_l_gptBase, enu_gptInterruptFlags_t enu_l_intFlags, uint32_t * ptr_uint32_l_intStatus)
 {
 
@@ -310,8 +299,7 @@ enu_gptErrorState_t gpt_interruptStatus(enu_gptBase_t enu_l_gptBase, enu_gptInte
     }
     return enu_l_tmuErrorState;
 }
-
-
+/************************************************************************/
 void TIMER0A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_0][GPT_TIMER_A] != NULL)
@@ -319,7 +307,7 @@ void TIMER0A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_0][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER0B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_0][GPT_TIMER_B] != NULL)
@@ -327,7 +315,7 @@ void TIMER0B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_0][GPT_TIMER_B]();
     }
 }
-
+/************************************************************************/
 void TIMER1A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_1][GPT_TIMER_A] != NULL)
@@ -335,7 +323,7 @@ void TIMER1A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_1][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER1B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_1][GPT_TIMER_B] != NULL)
@@ -343,7 +331,7 @@ void TIMER1B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_1][GPT_TIMER_B]();
     }
 }
-
+/************************************************************************/
 void TIMER2A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_2][GPT_TIMER_A] != NULL)
@@ -351,7 +339,7 @@ void TIMER2A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_2][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER2B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_2][GPT_TIMER_B] != NULL)
@@ -359,7 +347,7 @@ void TIMER2B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_2][GPT_TIMER_B]();
     }
 }
-
+/************************************************************************/
 void TIMER3A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_3][GPT_TIMER_A] != NULL)
@@ -367,7 +355,7 @@ void TIMER3A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_3][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER3B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_3][GPT_TIMER_B] != NULL)
@@ -375,7 +363,7 @@ void TIMER3B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_3][GPT_TIMER_B]();
     }
 }
-
+/************************************************************************/
 void TIMER4A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_4][GPT_TIMER_A] != NULL)
@@ -383,7 +371,7 @@ void TIMER4A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_4][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER4B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_4][GPT_TIMER_B] != NULL)
@@ -391,7 +379,7 @@ void TIMER4B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_4][GPT_TIMER_B]();
     }
 }
-
+/************************************************************************/
 void TIMER5A_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_5][GPT_TIMER_A] != NULL)
@@ -399,7 +387,7 @@ void TIMER5A_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_5][GPT_TIMER_A]();
     }
 }
-
+/************************************************************************/
 void TIMER5B_Handler(void)
 {
     if (ptr_func_gptIRQsCallBack[GPT_BASE_5][GPT_TIMER_B] != NULL)
@@ -407,5 +395,6 @@ void TIMER5B_Handler(void)
         ptr_func_gptIRQsCallBack[GPT_BASE_5][GPT_TIMER_B]();
     }
 }
+/************************************************************************/
 
 
